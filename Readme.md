@@ -16,14 +16,22 @@ I[INICIO] --> S[START]
 S --> V(ColoresEnv 
 Colores)
 V --> Aumentar[Aumentar color]
-Aumentar --> Vis[Visualizar Colores]
+```
+```mermaid
+flowchart LR
+
+Aumentar[Aumentar color] --> Vis[Visualizar Colores]
 Vis --> W[Wait Colores Pulsados]
 W --> Aumentar2[aumentarColorAEnviar]
 Aumentar2 --> CBoton{Boton enviar pulsado}
 CBoton --> |NO|W
+```
+```mermaid
+flowchart LR
+
 CBoton --> |SI|E[Enviar datos]
 E --> C{Colores==coloresEnviados}
-C --> |SI|+R[Aumentar Ronda] --> Aumentar
+C --> |SI|+R[Aumentar Ronda] --> Aumentar[Aumentar Color]
 C --> |NO| P[PERDISTE]
 ```
 - Diagrama de estados
