@@ -10,7 +10,7 @@ Este proyecto consta de tres partes:
 ### Diagramas
 - Diagrama de flujo
 ```mermaid
-flowchart LR
+graph TD
 
 I[INICIO] --> S[START]
 S --> V(ColoresEnv + Colores)
@@ -29,7 +29,7 @@ C --> |NO| P[PERDISTE]
 
 ```mermaid
 graph TD;
-    Start-->Secuencia-->Wait-->Input-->Comprobar-->Perder
+    Start[Inicio]-->Secuencia-->Wait-->Input-->Comprobar-->Perder
     Comprobar-->|SI|Secuencia
 
 ```
