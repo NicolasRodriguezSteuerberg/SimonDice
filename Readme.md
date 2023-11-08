@@ -13,25 +13,16 @@ Este proyecto consta de tres partes:
 flowchart LR
 
 I[INICIO] --> S[START]
-S --> V(ColoresEnv 
-Colores)
+S --> V(ColoresEnv + Colores)
 V --> Aumentar[Aumentar color]
-```
-```mermaid
-flowchart LR
-
-Aumentar[Aumentar color] --> Vis[Visualizar Colores]
+Aumentar --> Vis[Visualizar Colores]
 Vis --> W[Wait Colores Pulsados]
 W --> Aumentar2[aumentarColorAEnviar]
 Aumentar2 --> CBoton{Boton enviar pulsado}
 CBoton --> |NO|W
-```
-```mermaid
-flowchart LR
-
 CBoton --> |SI|E[Enviar datos]
 E --> C{Colores==coloresEnviados}
-C --> |SI|+R[Aumentar Ronda] --> Aumentar[Aumentar Color]
+C --> |SI|+R[Aumentar Ronda] --> Aumentar
 C --> |NO| P[PERDISTE]
 ```
 - Diagrama de estados
