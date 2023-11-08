@@ -25,7 +25,6 @@ graph TD;
     E-->C{Colores==coloresEnviados}
     C-->|SI|+R[Aumentar Ronda]-->+
     C-->|NO| P[PERDISTE]
-    
 ```
 - Diagrama de estados
 
