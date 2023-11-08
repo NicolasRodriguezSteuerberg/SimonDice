@@ -20,18 +20,18 @@ C -->|Two| E[Result 2]
 flowchart LR
 
 I[INICIO] --> S[START]
-S-->V(ColoresEnv 
+S --> V(ColoresEnv 
 Colores)
-V-->+[Aumentar color]
-+-->Vis[Visualizar Colores]
-Vis-->W[Wait Colores Pulsados]
-W-->+2[aumentarColorAEnviar]
-+2-->CBoton{Boton enviar pulsado}
-CBoton-->|NO|W
-CBoton-->|SI|E[Enviar datos]
-E-->C{Colores==coloresEnviados}
-C-->|SI|+R[Aumentar Ronda]-->+
-C-->|NO| P[PERDISTE]
+V --> Aumentar[Aumentar color]
+Aumentar --> Vis[Visualizar Colores]
+Vis --> W[Wait Colores Pulsados]
+W --> Aumentar2[aumentarColorAEnviar]
+Aumentar2 --> CBoton{Boton enviar pulsado}
+CBoton --> |NO|W
+CBoton --> |SI|E[Enviar datos]
+E --> C{Colores==coloresEnviados}
+C --> |SI|+R[Aumentar Ronda]-->+
+C --> |NO| P[PERDISTE]
 ```
 - Diagrama de estados
 
