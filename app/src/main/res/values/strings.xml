@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Simon Dice</string>
+    <string name="round">Ronda</string>
+    <string name="descripcionArrow">Icono de inicio</string>
+</resources>
