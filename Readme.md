@@ -12,15 +12,6 @@ Este proyecto consta de tres partes:
 ```mermaid
 flowchart LR
 
-A[Hard] -->|Text| B(Round)
-B --> C{Decision}
-C -->|One| D[Result 1]
-C -->|Two| E[Result 2]
-```
-
-```mermaid
-flowchart LR
-
 I[INICIO] --> S[START]
 S --> V(ColoresEnv 
 Colores)
@@ -32,7 +23,7 @@ Aumentar2 --> CBoton{Boton enviar pulsado}
 CBoton --> |NO|W
 CBoton --> |SI|E[Enviar datos]
 E --> C{Colores==coloresEnviados}
-C --> |SI|+R[Aumentar Ronda]-->+
+C --> |SI|+R[Aumentar Ronda] --> Aumentar
 C --> |NO| P[PERDISTE]
 ```
 - Diagrama de estados
