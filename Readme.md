@@ -11,7 +11,7 @@ Este proyecto consta de tres partes:
 - Diagrama de flujo
 
 ```mermaid
-graph TD;
+flowchart LR;
     I[INICIO]-->S[START];
     S-->V(ColoresEnv 
     Colores)
