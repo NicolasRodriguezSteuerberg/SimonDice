@@ -2,7 +2,6 @@
 
 package com.nsteuerberg.simondice.ui.theme
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,58 +22,68 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nsteuerberg.simondice.Data
 import com.nsteuerberg.simondice.MyViewModel
 import com.nsteuerberg.simondice.R
 
 @Composable
-fun InterfazUsuario(miViewModel: MyViewModel) {
-
-
+fun UserInterface(miViewModel: MyViewModel) {
     Column {
-        ronda(miViewModel)
-        botonesSimon()
-        startSumaRonda(miViewModel)
+        round(miViewModel)
+        botonesSimon(miViewModel)
+        startIncreaseRound(miViewModel)
     }
 }
 
 @Composable
-fun ronda(miViewModel: MyViewModel){
-    Row (modifier = Modifier.padding(300.dp,0.dp,0.dp,0.dp)){
-        Text(
-            text = stringResource(id = R.string.round)
-        )
-    }
-    Row (modifier = Modifier
-        .padding(315.dp, 0.dp, 0.dp, 0.dp)
-        .height(25.dp)
-    ){
-        Text(
-            text = "1",
-            fontSize = 25.sp
-            // text = "${miViewModel.getRound()}",
-            //
-            // fontSize = miViewModel.getTamanhoLetra().sp
-        )
+fun round(myViewModel: MyViewModel){
+    Column {
+        // Row with the text "Record" and "Round"
+        Row {
+            Text(
+                modifier = Modifier.padding(20.dp,0.dp,0.dp,0.dp),
+                text = stringResource(id = R.string.record)
+            )
+            Text(
+                modifier = Modifier.padding(240.dp,0.dp,0.dp,0.dp),
+                text = stringResource(id = R.string.round)
+            )
+        }
+        // Row with the record and the round
+        Row {
+            Text(
+                modifier = Modifier.padding(20.dp,0.dp,0.dp,0.dp),
+                text = "${myViewModel.getRecord()}",
+                fontSize = 25.sp
+            )
+            Text(
+                text = "${myViewModel.getRound()}",
+                modifier = Modifier.padding(if(myViewModel.getRound()<10) 295.dp else 290.dp,0.dp,0.dp,0.dp),
+                fontSize = 25.sp
+            )
+        }
+
     }
 }
 
 
 @Composable
-fun botonesSimon(){
+fun botonesSimon(myViewModel: MyViewModel){
     Row (modifier = Modifier.padding(0.dp,100.dp,0.dp,0.dp)){
-        columnButtonSimon(color = Color.Cyan)
-        columnButtonSimon(color = Color.Green)
+        columnButtonSimon(color = Color.Cyan,myViewModel)
+        columnButtonSimon(color = Color.Green, myViewModel)
     }
     Row (){
-        columnButtonSimon(color = Color.Red)
-        columnButtonSimon(color = Color.Yellow)
+        columnButtonSimon(color = Color.Red, myViewModel)
+        columnButtonSimon(color = Color.Yellow, myViewModel)
     }
 }
 
 @Composable
-fun columnButtonSimon(color: Color){
+fun columnButtonSimon(color: Color, myViewModel: MyViewModel){
     Column {
         Button(onClick = {
+            myViewModel.increaseUserSecuence(Data.colors.indexOf(color))
             /*TODO*/
         },
             shape = RectangleShape,
@@ -92,12 +100,12 @@ fun columnButtonSimon(color: Color){
 }
 
 @Composable
-fun startSumaRonda(miViewModel: MyViewModel){
+fun startIncreaseRound(miViewModel: MyViewModel){
     Row {
         Column {
             Button(
                 onClick = {
-                    //miViewModel.changeEstado()
+                    miViewModel.changePlayStatus()
                 },
                 modifier = Modifier
                     .height(200.dp)
@@ -105,15 +113,18 @@ fun startSumaRonda(miViewModel: MyViewModel){
                     .padding(50.dp, 50.dp)
             ){
                 Text(
-                    text = "Inicio", textAlign = TextAlign.Center
-                    //text = miViewModel.getEstadoRonda(), textAlign = TextAlign.Center
+                    text = miViewModel.getPlayStatus(), textAlign = TextAlign.Center
                 )
             }
         }
         Column {
             Button(
                 onClick = {
-                    //miViewModel.elevateRound()
+                    if (miViewModel.getPlayStatus().equals("Start")){
+                        //nothing
+                    } else {
+                        miViewModel.checkSecuence()
+                    }
                 },
                 modifier = Modifier
                     .height(200.dp)
@@ -122,7 +133,7 @@ fun startSumaRonda(miViewModel: MyViewModel){
             ){
                 Image(
                     painter = painterResource(id = R.drawable.play_arrow),
-                    contentDescription = stringResource(id = R.string.descripcionArrow)
+                    contentDescription = stringResource(id = R.string.arrowDescription)
                 )
             }
         }
@@ -133,6 +144,6 @@ fun startSumaRonda(miViewModel: MyViewModel){
 @Composable
 fun GreetingPreview() {
     SimonDiceTheme {
-        InterfazUsuario(miViewModel = MyViewModel())
+        UserInterface(miViewModel = MyViewModel())
     }
 }
