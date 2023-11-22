@@ -1,6 +1,8 @@
 package com.nsteuerberg.simondice
 
-import androidx.compose.runtime.mutableStateListOf
+import android.content.Context
+import android.media.MediaPlayer
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
 
@@ -20,18 +22,41 @@ object Data {
     var botSecuence = mutableListOf<Int>()
     var record = mutableStateOf(0)
     var state = State.START
-    var colors = listOf(Color.Red, Color.Blue, Color.Green, Color.Yellow)
+    var colors = listOf(
+        MyColors.BLUE.color,
+        MyColors.GREEN.color,
+        MyColors.RED.color,
+        MyColors.YELLOW.color
+    )
+    var colorsMyColors = MyColors.values()
+    var colorFlag: Color = Color.White
+
+    val sounds = listOf(
+        MediaPlayer.create(DataContext.context, R.raw.sound1),
+        MediaPlayer.create(DataContext.context, R.raw.sound2),
+        MediaPlayer.create(DataContext.context, R.raw.sound3),
+        MediaPlayer.create(DataContext.context, R.raw.sound4)
+    )
+
+}
+
+object DataContext{
+    lateinit var context: Context
+
+    fun init(context: Context){
+        this.context = context
+    }
 }
 
 /**
  * Enum class that contains the colors of the game
  * @property value value of the color
  */
-enum class MyColors(color: Color) {
-    RED(Color.Red),
-    BLUE(Color.Blue),
-    GREEN(Color.Green),
-    YELLOW(Color.Yellow)
+enum class MyColors(val color: MutableState<Color>){
+    BLUE(mutableStateOf(Color.Blue)),
+    GREEN(mutableStateOf(Color.Green)),
+    RED(mutableStateOf(Color.Red)),
+    YELLOW(mutableStateOf(Color.Yellow))
 }
 
 /**

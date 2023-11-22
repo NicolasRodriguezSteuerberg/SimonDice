@@ -19,6 +19,7 @@ import com.nsteuerberg.simondice.ui.theme.SimonDiceTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DataContext.init(applicationContext)
         var myViewModel = MyViewModel()
         setContent {
             SimonDiceTheme {

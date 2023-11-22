@@ -13,6 +13,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -23,11 +25,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nsteuerberg.simondice.Data
+import com.nsteuerberg.simondice.MyColors
 import com.nsteuerberg.simondice.MyViewModel
 import com.nsteuerberg.simondice.R
+import com.nsteuerberg.simondice.State
+import kotlinx.coroutines.launch
 
 @Composable
 fun UserInterface(miViewModel: MyViewModel) {
+    miViewModel
     Column {
         round(miViewModel)
         botonesSimon(miViewModel)
@@ -70,29 +76,32 @@ fun round(myViewModel: MyViewModel){
 @Composable
 fun botonesSimon(myViewModel: MyViewModel){
     Row (modifier = Modifier.padding(0.dp,100.dp,0.dp,0.dp)){
-        columnButtonSimon(color = Color.Cyan,myViewModel)
-        columnButtonSimon(color = Color.Green, myViewModel)
+        columnButtonSimon(color = MyColors.BLUE.color,myViewModel)
+        columnButtonSimon(color = MyColors.GREEN.color, myViewModel)
     }
     Row (){
-        columnButtonSimon(color = Color.Red, myViewModel)
-        columnButtonSimon(color = Color.Yellow, myViewModel)
+        columnButtonSimon(color = MyColors.RED.color, myViewModel)
+        columnButtonSimon(color = MyColors.YELLOW.color, myViewModel)
     }
 }
 
 @Composable
-fun columnButtonSimon(color: Color, myViewModel: MyViewModel){
+fun columnButtonSimon(color: MutableState<Color>, myViewModel: MyViewModel){
     Column {
-        Button(onClick = {
-            myViewModel.increaseUserSecuence(Data.colors.indexOf(color))
-            /*TODO*/
-        },
+        Button(
+            onClick = {
+                if (Data.state != State.SEQUENCE) {
+                    myViewModel.increaseUserSecuence(Data.colors.indexOf(color))
+                    Data.sounds[Data.colors.indexOf(color)].start()
+                }
+            },
             shape = RectangleShape,
             modifier = Modifier
                 .height(200.dp)
                 .width(200.dp)
                 .padding(50.dp, 50.dp)
             ,
-            colors = ButtonDefaults.buttonColors(color)
+            colors = ButtonDefaults.buttonColors(color.value)
         ){
 
         }
@@ -101,10 +110,18 @@ fun columnButtonSimon(color: Color, myViewModel: MyViewModel){
 
 @Composable
 fun startIncreaseRound(miViewModel: MyViewModel){
+    /* how to make a coroutine in the UI
+    val iuScope = rememberCoroutineScope()
+    // in the button (click), we start a coroutine
+    iuScope.launch {
+        // di de coroutine
+    }*/
+
     Row {
         Column {
             Button(
                 onClick = {
+                    // change the play status
                     miViewModel.changePlayStatus()
                 },
                 modifier = Modifier
