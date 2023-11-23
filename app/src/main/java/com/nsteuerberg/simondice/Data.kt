@@ -40,6 +40,7 @@ object Data {
 
 }
 
+// music
 object DataContext{
     lateinit var context: Context
 
@@ -53,6 +54,7 @@ object DataContext{
  * @property value value of the color
  */
 enum class MyColors(val color: MutableState<Color>){
+    // go from 0 to 3
     BLUE(mutableStateOf(Color.Blue)),
     GREEN(mutableStateOf(Color.Green)),
     RED(mutableStateOf(Color.Red)),

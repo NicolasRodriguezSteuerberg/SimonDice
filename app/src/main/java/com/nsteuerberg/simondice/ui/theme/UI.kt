@@ -1,5 +1,4 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.nsteuerberg.simondice.ui.theme
 
 import androidx.compose.foundation.Image

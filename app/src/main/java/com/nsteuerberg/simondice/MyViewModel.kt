@@ -71,7 +71,7 @@ class MyViewModel: ViewModel(){
     }
 
     fun showSecuence() = runBlocking {
-        showBotSecuence()
+        showBotSequence()
     }
 
     /**
@@ -103,8 +103,7 @@ class MyViewModel: ViewModel(){
     /**
      * shows the bot secuence to the user
      */
-    fun showBotSecuence(){
-        //TODO: change the color with diferent color, not white
+    fun showBotSequence(){
         viewModelScope.launch {
             // we need to do the coroutines in the _viewModelScope.launch_
             for (colorIndex in Data.botSecuence) {
