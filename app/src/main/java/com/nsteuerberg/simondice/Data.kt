@@ -30,6 +30,7 @@ object Data {
     )
     var colorsMyColors = MyColors.values()
     var colorFlag: Color = Color.White
+    var colorUserFlag: Color = Color.White
 
     val sounds = listOf(
         MediaPlayer.create(DataContext.context, R.raw.sound1),

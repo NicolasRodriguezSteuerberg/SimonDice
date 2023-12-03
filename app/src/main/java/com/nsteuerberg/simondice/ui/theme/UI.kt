@@ -89,9 +89,11 @@ fun columnButtonSimon(color: MutableState<Color>, myViewModel: MyViewModel){
     Column {
         Button(
             onClick = {
-                if (Data.state != State.SEQUENCE) {
+                // si no hago lo del input si a la hora de haccer la secuencia vamos rapido se fastidian los colores
+                if (Data.state != State.SEQUENCE && Data.state != State.INPUT) {
                     myViewModel.increaseUserSecuence(Data.colors.indexOf(color))
                     Data.sounds[Data.colors.indexOf(color)].start()
+                    myViewModel.showButtonPressed(color)
                 }
             },
             shape = RectangleShape,

@@ -1,6 +1,7 @@
 package com.nsteuerberg.simondice
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -118,6 +119,16 @@ class MyViewModel: ViewModel(){
             Log.d("ESTADO",Data.state.toString())
         }
         Log.d("ESTADO",Data.botSecuence.toString())
+    }
+    fun showButtonPressed(color: MutableState<Color>){
+        viewModelScope.launch {
+            Data.state = State.INPUT
+            Data.colorUserFlag = color.value
+            color.value = darkenColor(Data.colorUserFlag, 0.5f)
+            delay(250L)
+            color.value = Data.colorUserFlag
+            Data.state = State.WAITING
+        }
     }
 
     /**
