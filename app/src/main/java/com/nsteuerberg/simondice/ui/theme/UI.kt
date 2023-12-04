@@ -1,6 +1,7 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 package com.nsteuerberg.simondice.ui.theme
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -30,8 +32,11 @@ import com.nsteuerberg.simondice.R
 import com.nsteuerberg.simondice.State
 import kotlinx.coroutines.launch
 
+var ctxt: Context? = null
+
 @Composable
 fun UserInterface(miViewModel: MyViewModel) {
+    ctxt = LocalContext.current
     miViewModel
     Column {
         round(miViewModel)
@@ -90,7 +95,7 @@ fun columnButtonSimon(color: MutableState<Color>, myViewModel: MyViewModel){
         Button(
             onClick = {
                 // si no hago lo del input si a la hora de haccer la secuencia vamos rapido se fastidian los colores
-                if (Data.state != State.SEQUENCE && Data.state != State.INPUT) {
+                if (Data.state != State.SEQUENCE && Data.state != State.INPUT && !myViewModel.getPlayStatus().equals("Start")) {
                     myViewModel.increaseUserSecuence(Data.colors.indexOf(color))
                     Data.sounds[Data.colors.indexOf(color)].start()
                     myViewModel.showButtonPressed(color)
@@ -141,7 +146,10 @@ fun startIncreaseRound(miViewModel: MyViewModel){
                     if (miViewModel.getPlayStatus().equals("Start")){
                         //nothing
                     } else {
-                        miViewModel.checkSecuence()
+                        // si no pongo esto y le doy al reset, boton y mandar secuencia a la vez, se fastidian los colores de los botones
+                        if(Data.state != State.SEQUENCE && Data.state != State.INPUT) {
+                            miViewModel.checkSecuence()
+                        }
                     }
                 },
                 modifier = Modifier

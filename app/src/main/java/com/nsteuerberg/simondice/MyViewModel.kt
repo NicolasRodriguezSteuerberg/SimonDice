@@ -1,10 +1,12 @@
 package com.nsteuerberg.simondice
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nsteuerberg.simondice.ui.theme.ctxt
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -155,13 +157,14 @@ class MyViewModel: ViewModel(){
         Log.d("ESTADO",Data.state.toString())
         if (Data.UserSecuence == Data.botSecuence){
             Data.round.value ++
-            if (Data.round.value > Data.record.value){
-                Data.record.value = Data.round.value
+            if ((Data.round.value - 1) > Data.record.value){
+                Data.record.value = Data.round.value - 1
             }
             Data.UserSecuence.clear()
             increaseShowBotSecuence()
         } else{
             Data.state = State.FINISH
+            Toast.makeText(ctxt,"G A M E   O V E R",Toast.LENGTH_SHORT).show()
             Data.playStatus.value = "Start"
             initGame()
             Log.d("ESTADO",Data.state.toString())
@@ -193,8 +196,10 @@ class MyViewModel: ViewModel(){
             Data.round.value ++
             increaseShowBotSecuence()
         } else{
-            Data.playStatus.value = "Start"
-            initGame()
+            if (Data.state != State.SEQUENCE && Data.state != State.INPUT) {
+                Data.playStatus.value = "Start"
+                initGame()
+            }
         }
 
     }
