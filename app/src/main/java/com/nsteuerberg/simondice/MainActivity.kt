@@ -38,7 +38,13 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
+    var myViewModel = MyViewModel()
     SimonDiceTheme {
-        UserInterface(miViewModel = MyViewModel())
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = Color(255,100,150)
+        ) {
+            UserInterface(miViewModel = myViewModel)
+        }
     }
 }

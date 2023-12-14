@@ -196,6 +196,7 @@ class MyViewModel: ViewModel(){
             Data.round.value ++
             increaseShowBotSecuence()
         } else{
+            // si no pongo este if los botones pueden llegar a cambiar de color
             if (Data.state != State.SEQUENCE && Data.state != State.INPUT) {
                 Data.playStatus.value = "Start"
                 initGame()

@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nsteuerberg.simondice.Data
+import com.nsteuerberg.simondice.DataContext
 import com.nsteuerberg.simondice.MyColors
 import com.nsteuerberg.simondice.MyViewModel
 import com.nsteuerberg.simondice.R
@@ -163,13 +164,5 @@ fun startIncreaseRound(miViewModel: MyViewModel){
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SimonDiceTheme {
-        UserInterface(miViewModel = MyViewModel())
     }
 }
